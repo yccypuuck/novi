@@ -1,13 +1,16 @@
 {
-    "Post": {
-      "title": "string",
-      "views": "int",
-      "published": "boolean",
-      "createdAt": "date",
-      "comments": "Comment[]"
+    "Issue": {
+        "subject": "string",
+        "description": "string",
+        "createdAt": "date",
+        "closedAt": "date",
+        "dueDate": "date",
+        "storyPoints": "int",
+        "isClosed": "boolean",
+        "comments": "Comment[]"
     },
     "Comment": {
-      "body": "string",
-      "post": "Post"
+        "body": "string",
+        "post": "Issue"
     }
-  }
+}
