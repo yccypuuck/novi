@@ -7,10 +7,12 @@
         "dueDate": "date",
         "storyPoints": "int",
         "isClosed": "boolean",
-        "comments": "Comment[]"
+        "assignee": "User"
     },
-    "Comment": {
-        "body": "string",
-        "post": "Issue"
+    "User": {
+        "name": "string",
+        "email": "string",
+        "issues": "Issue[]"
+
     }
 }
