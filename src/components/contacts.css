@@ -1,0 +1,14 @@
+.layout {
+    img {
+        display: block;
+        max-width: 372px;
+        max-height: 372px;
+        height: auto;
+        width: auto;
+    }
+}
+
+.card {
+    width: 370px;
+    border: 1px solid gray;
+}
