@@ -1,7 +1,7 @@
 import namor from 'namor'
 import React from 'react';
-
-import AvatarGenerator from 'react-avatar-generator';
+import Avatar from 'react-avatar';
+// import AvatarGenerator from 'react-avatar-generator';
 
 const range = len => {
     const arr = []
@@ -26,15 +26,6 @@ function getRandomStatus() {
     return 'ToDo';
 }
 
-function getRandomAvatar() {
-    const shape = ['circle', 'square', 'triangle'][Math.floor(Math.random() * 3)];
-    return (<AvatarGenerator colors={[
-        'rgb(' + (Math.floor(Math.random() * 256)) + ',' + (Math.floor(Math.random() * 256)) + ',' + (Math.floor(Math.random() * 256)) + ')',
-        'rgb(' + (Math.floor(Math.random() * 256)) + ',' + (Math.floor(Math.random() * 256)) + ',' + (Math.floor(Math.random() * 256)) + ')',
-        'rgb(' + (Math.floor(Math.random() * 256)) + ',' + (Math.floor(Math.random() * 256)) + ',' + (Math.floor(Math.random() * 256)) + ')'
-    ]} backgroundColor="#fff" height='20' width='20' sizing='5' shape={shape} />);
-}
-
 const newPerson = (d) => {
     const personName = Capitalize(namor.generate({ words: 1, saltLength: 0}))
         + ' '
@@ -43,7 +34,7 @@ const newPerson = (d) => {
     const issuesOverDue = Math.floor(Math.random() * 10);
     return {
         id: d,
-        avatar: getRandomAvatar(),
+        avatar: <Avatar name={personName} size="40" />,
         username: namor.generate({ words: 1, saltLength: 2 }),
         fullName: personName,
         issuesOntime: issuesOntime,

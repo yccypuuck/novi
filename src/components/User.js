@@ -68,7 +68,6 @@ class User extends React.Component {
       ],
       width: 700,
       height: 500,
-      id: root
     };
   }
 

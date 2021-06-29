@@ -63,10 +63,10 @@ function Table({ columns, data }) {
             <nav aria-label="Page navigation example">
                 <div className="pagination">
                     <ul className="pagination">
-                        <li className="page-item"><a className="page-link" style={{ cursor: 'pointer' }} onClick={() => gotoPage(0)} disabled={!canPreviousPage}>{'<<'}</a></li>
-                        <li className="page-item"><a className="page-link" style={{ cursor: 'pointer' }} onClick={() => previousPage()} disabled={!canPreviousPage}>{'<'}</a></li>
-                        <li className="page-item"><a className="page-link" style={{ cursor: 'pointer' }} onClick={() => nextPage()} disabled={!canNextPage}>{'>'}</a></li>
-                        <li className="page-item"><a className="page-link" style={{ cursor: 'pointer' }} onClick={() => gotoPage(pageCount - 1)} disabled={!canNextPage}>{'>>'}</a></li>
+                        <li className="page-item"><button className="page-link" style={{ cursor: 'pointer' }} onClick={() => gotoPage(0)} disabled={!canPreviousPage}>{'<<'}</button></li>
+                        <li className="page-item"><button className="page-link" style={{ cursor: 'pointer' }} onClick={() => previousPage()} disabled={!canPreviousPage}>{'<'}</button></li>
+                        <li className="page-item"><button className="page-link" style={{ cursor: 'pointer' }} onClick={() => nextPage()} disabled={!canNextPage}>{'>'}</button></li>
+                        <li className="page-item"><button className="page-link" style={{ cursor: 'pointer' }} onClick={() => gotoPage(pageCount - 1)} disabled={!canNextPage}>{'>>'}</button></li>
                         <li className="page-item disabled">
                             <div className="page-link" >Page{' '}
                                 <strong >
