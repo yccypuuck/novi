@@ -1,111 +1,70 @@
-import { useTable, usePagination } from 'react-table'
+import { useState, forwardRef } from 'react';
+import MaterialTable from 'material-table';
 import React from 'react';
+import AddBox from '@material-ui/icons/AddBox';
+import ArrowDownward from '@material-ui/icons/ArrowDownward';
+import Check from '@material-ui/icons/Check';
+import ChevronLeft from '@material-ui/icons/ChevronLeft';
+import ChevronRight from '@material-ui/icons/ChevronRight';
+import Clear from '@material-ui/icons/Clear';
+import DeleteOutline from '@material-ui/icons/DeleteOutline';
+import Edit from '@material-ui/icons/Edit';
+import FilterList from '@material-ui/icons/FilterList';
+import FirstPage from '@material-ui/icons/FirstPage';
+import LastPage from '@material-ui/icons/LastPage';
+import Remove from '@material-ui/icons/Remove';
+import SaveAlt from '@material-ui/icons/SaveAlt';
+import Search from '@material-ui/icons/Search';
+import ViewColumn from '@material-ui/icons/ViewColumn';
 
-function Table({ columns, data }) {
-    // Use the state and functions returned from useTable to build your UI
-    const {
-        getTableProps,
-        getTableBodyProps,
-        headerGroups,
-        prepareRow,
-        page, // Instead of using 'rows', we'll use page,
-        // which has only the rows for the active page
+const tableIcons = {
+    Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
+    Check: forwardRef((props, ref) => <Check {...props} ref={ref} />),
+    Clear: forwardRef((props, ref) => <Clear {...props} ref={ref} />),
+    Delete: forwardRef((props, ref) => <DeleteOutline {...props} ref={ref} />),
+    DetailPanel: forwardRef((props, ref) => <ChevronRight {...props} ref={ref} />),
+    Edit: forwardRef((props, ref) => <Edit {...props} ref={ref} />),
+    Export: forwardRef((props, ref) => <SaveAlt {...props} ref={ref} />),
+    Filter: forwardRef((props, ref) => <FilterList {...props} ref={ref} />),
+    FirstPage: forwardRef((props, ref) => <FirstPage {...props} ref={ref} />),
+    LastPage: forwardRef((props, ref) => <LastPage {...props} ref={ref} />),
+    NextPage: forwardRef((props, ref) => <ChevronRight {...props} ref={ref} />),
+    PreviousPage: forwardRef((props, ref) => <ChevronLeft {...props} ref={ref} />),
+    ResetSearch: forwardRef((props, ref) => <Clear {...props} ref={ref} />),
+    Search: forwardRef((props, ref) => <Search {...props} ref={ref} />),
+    SortArrow: forwardRef((props, ref) => <ArrowDownward {...props} ref={ref} />),
+    ThirdStateCheck: forwardRef((props, ref) => <Remove {...props} ref={ref} />),
+    ViewColumn: forwardRef((props, ref) => <ViewColumn {...props} ref={ref} />)
+  };
 
-        // The rest of these things are super handy, too ;)
-        canPreviousPage,
-        canNextPage,
-        pageOptions,
-        pageCount,
-        gotoPage,
-        nextPage,
-        previousPage,
-        setPageSize,
-        state: { pageIndex, pageSize },
-    } = useTable({
-        columns,
-        data,
-        initialState: { pageIndex: 2 },
-    },
-        usePagination
-    )
-
-    // Render the UI for your table
+function Table({ columns, data, title='' }) {
+    const [selectedRow, setSelectedRow] = useState(null);
+  
     return (
-        <div className="table-responsive">
-            <table className="table table-striped table-hover" {...getTableProps()}>
-                {/* <caption>List of users</caption> */}
-                <thead className="thead">
-                    {headerGroups.map(headerGroup => (
-                        <tr {...headerGroup.getHeaderGroupProps()}>
-                            {headerGroup.headers.map(column => (
-                                <th {...column.getHeaderProps()}>{column.render('Header')}</th>
-                            ))}
-                        </tr>
-                    ))}
-                </thead>
-                <tbody {...getTableBodyProps()}>
-                    {page.map((row, i) => {
-                        prepareRow(row)
-                        return (
-                            <tr {...row.getRowProps()}>
-                                {row.cells.map(cell => {
-                                    return <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
-                                })}
-                            </tr>
-                        )
-                    })}
-                </tbody>
-            </table>
-            { /* 
-        Pagination can be built however you'd like. 
-        This is just a very basic UI implementation:
-      */ }
-            <nav aria-label="Page navigation example">
-                <div className="pagination">
-                    <ul className="pagination">
-                        <li className="page-item"><button className="page-link" style={{ cursor: 'pointer' }} onClick={() => gotoPage(0)} disabled={!canPreviousPage}>{'<<'}</button></li>
-                        <li className="page-item"><button className="page-link" style={{ cursor: 'pointer' }} onClick={() => previousPage()} disabled={!canPreviousPage}>{'<'}</button></li>
-                        <li className="page-item"><button className="page-link" style={{ cursor: 'pointer' }} onClick={() => nextPage()} disabled={!canNextPage}>{'>'}</button></li>
-                        <li className="page-item"><button className="page-link" style={{ cursor: 'pointer' }} onClick={() => gotoPage(pageCount - 1)} disabled={!canNextPage}>{'>>'}</button></li>
-                        <li className="page-item disabled">
-                            <div className="page-link" >Page{' '}
-                                <strong >
-                                    {pageIndex + 1} of {pageOptions.length}
-                                </strong>{' '}
-                            </div>
-                        </li>
-                        <li className="page-item">
-                            | Go to page:{' '}
-                            <input
-                                type="number"
-                                defaultValue={pageIndex + 1}
-                                onChange={e => {
-                                    const gotopage = e.target.value ? Number(e.target.value) - 1 : 0
-                                    gotoPage(gotopage)
-                                }}
-                                style={{ width: '100px' }}
-                            />
-                        </li>
-                        <li className="page-item">
-                            <select className="custom-select"
-                                value={pageSize}
-                                onChange={e => {
-                                    setPageSize(Number(e.target.value))
-                                }}
-                            >
-                                {[10, 20, 30, 40, 50].map(pageSize => (
-                                    <option key={pageSize} value={pageSize}>
-                                        Show {pageSize}
-                                    </option>
-                                ))}
-                            </select>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
-        </div>
-    )
-}
-
+      <div style={{ maxWidth: '100%' }}>
+        <MaterialTable
+          icons={tableIcons}
+          columns={columns}
+          data={data}
+          title={title}
+          onRowClick={(evt, selectedRow) =>
+            setSelectedRow(selectedRow.tableData.id)
+          }
+          options={{
+            headerStyle: { position: 'sticky', top: 0 },
+            maxBodyHeight: 500,
+            search: false,
+            fontSize: 5,
+            padding: 'dense',
+            rowStyle: rowData => ({
+              backgroundColor:
+                selectedRow === rowData.tableData.id ? '#67aeae' : '#FFF'
+            })
+          }}
+        />
+      </div>
+    );
+  };
+  
 
 export default Table

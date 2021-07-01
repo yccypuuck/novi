@@ -1,74 +1,26 @@
 import React from 'react';
-import Table from './table';
-import makeData from './makeData'
+import Table from './Table';
+import dataUsers from './dataUsers'
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-function NewUsers() {
-  const columns = React.useMemo(
-    () => [
-      {
-        Header: 'Name',
-        columns: [
-          {
-            Header: 'avatar',
-            accessor: 'avatar',
-          },
-          {
-            Header: 'username',
-            accessor: 'username',
-          },
-          {
-            Header: 'Full Name',
-            accessor: 'fullName',
-          },
-        ],
-      },
-      {
-        Header: 'Info',
-        columns: [
-          {
-            Header: 'Closed Ontime',
-            accessor: 'issuesOntime',
-          },
-          {
-            Header: 'Closed OverDue',
-            accessor: 'issuesOverdue',
-          },
-          {
-            Header: 'Batting Average',
-            accessor: 'battingAverage',
-          },
-          {
-            Header: 'SP Closed',
-            accessor: 'storyPoints',
-          },
-        ],
-      },
-    ],
-    []
-  )
-
-  const data = React.useMemo(() => makeData(30), [])
-
-  return (
-    <Table columns={columns} data={data} />
-  )
-}
+const user_columns = [
+  { title: 'avatar', field: 'avatar', },
+  { title: 'username', field: 'id', },
+  { title: 'Full Name', field: 'fullName', },
+  { title: 'Closed Ontime', field: 'issuesOntime', },
+  { title: 'Closed OverDue', field: 'issuesOverdue', },
+  { title: 'Batting Average', field: 'battingAverage', },
+  { title: 'SP Closed', field: 'storyPoints', },
+]
 
 class User extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      contacts: [],
-      data: [
-        [10, 30, 40, 20],
-        [10, 40, 30, 20, 50, 10],
-        [60, 30, 40, 20, 30]
-
-      ],
-      width: 700,
-      height: 500,
+      data: dataUsers(30),
+      columns: user_columns,
     };
+    console.log(this.state.data)
   }
 
   handleClick() {
@@ -84,10 +36,14 @@ class User extends React.Component {
   //         .catch(console.log)
   // }
 
+
+
   render() {
     return (
       <div>
-        <NewUsers />
+        {/* <NewUsers /> */}
+        <Table columns={this.state.columns} data={this.state.data} />
+
         {/* <Contacts contacts={this.state.contacts} /> */}
         {/* <div className="App">
                     <BarChart data={this.state.data} width={this.state.width} height={this.state.height} />
@@ -96,5 +52,4 @@ class User extends React.Component {
     );
   }
 }
-
 export default User;
